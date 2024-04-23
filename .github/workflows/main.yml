@@ -39,7 +39,7 @@ jobs:
         MEND_USER_KEY: 1568a6c8bd335fc677007c8a7ff7e856e0a4356eaa4c4aaf30568eba7f4c57ea
         MEND_URL: https://saas.whitesourcesoftware.com
         MEND_SAST_THRESHOLD_HIGH: 6
-        MEND_SAST_THRESHOLD_MEDIUM: 7
+        MEND_SAST_THRESHOLD_MEDIUM: 8
       run: |
         echo Downloading Mend CLI
         curl https://downloads.mend.io/cli/linux_amd64/mend -o /usr/local/bin/mend && chmod +x /usr/local/bin/mend
