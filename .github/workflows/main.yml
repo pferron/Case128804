@@ -1,0 +1,45 @@
+# ******** Mend Unified CLI Template for Github Actions ********
+#
+# You may wish to alter this file to override the build tool and Mend scanning technologies.
+#
+# For more configuration options, please check the technical documentation portal:
+# 📚 https://docs.mend.io/bundle/integrations/page/scan_with_the_mend_cli.html
+#
+# ******** Description ********
+# mend dep will automatically use package managers and file system scanning to detect open source components.
+# mend code will automatically detect languages and frameworks used in your projects to scan for code weaknesses.
+
+# If you are NOT using a service user, and have multiple organizations, don't forget to call the scope -s parameter to set the organization
+
+name: Mend CLI Scan
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+## Maven example - replace with your build steps
+#    - name: Set up JDK
+#      uses: actions/setup-java@v2
+#      with:
+#        java-version: '11'
+#        distribution: 'adopt'
+#    - name: Build with Maven
+#      run: mvn clean install -DskipTests=true
+##
+# The mend dep scan should be called AFTER a package manager build step such as "mvn clean install -DskipTests=true" or "npm install --only=prod"
+    - name: Mend CLI Scan
+      env:
+        MEND_EMAIL: philippe.ferron@whitesourcesoftware.com
+        MEND_USER_KEY: 1568a6c8bd335fc677007c8a7ff7e856e0a4356eaa4c4aaf30568eba7f4c57ea
+        MEND_URL: https://saas.whitesourcesoftware.com
+      run: |
+        echo Downloading Mend CLI
+        curl https://downloads.mend.io/cli/linux_amd64/mend -o /usr/local/bin/mend && chmod +x /usr/local/bin/mend
+        echo Run Mend code scan
+        mend code
